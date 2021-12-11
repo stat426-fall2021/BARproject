@@ -23,17 +23,22 @@ Finally we looked at the readability of the posts. All of the posts have similar
 
 # Methods and Research
 
-### To add pictures add the file to github then use this code where you want it to be ![plot](myimage.png)
+To begin our model building, we split the data into test and training sets on an 80/20 split. We then decided to run it through Naive Bayes, logistic regression, gradient boosting, decision tree, and random forest classifying models. Given the graphic below, we decided to see how we could alter the random forest model to better predict our data. It’s area under the curve was the largest at .83 which gave us hope that we could use random forest classification to create an effective model.
 
-To begin our model building, we split the data into test and training sets on an 80/20 split. We then decided to run it through Naive Bayes, logistic regression, gradient boosting, decision tree, and random forest classifying models. Given the graphic below, we decided to see how we could alter the random forest model to better predict our data. It’s area under the curve was the largest at .83 which gave us hope that we could use random forest classification to create an effective model. 
+[models](models.png)
 
 However, upon further looking into the results of the  model, we saw that while it was perfectly predicting the negative cases (posts without body-image issue words), it had a sensitivity of .12. While we tried to alter the threshold to optimize our results, we realized that to gain more sensitivity, we would have to sacrifice precision. 
+
+[recall](recall.png)
 
 
 We began altering the threshold of the random forest model to get a better sensitivity while still maintaining a reasonable specificity. We found that a threshold of .1 gave us a sensitivity of 0.85 and a specificity of 0.6. We were much happier with this result and the model’s improved ability to recognize posts with possible body image concerns. 
 
+[random forest](rf.png)
+
 There are many advantages to the random forest classifier. It has less variance than other “tree” methods due to the independence of each tree from other trees in the method and takes various steps to ensure accuracy and avoid bias.  Each tree creates its model on a random sample from the training data. This uncorrelated forest performs predictions as a crowd, like a committee of decision makers. This avoids overfitting since the trees are independent from one another and creates a more robust model. The random forest method was also preferable because in our case, we didn’t have a huge dataset, so we could take the time to run a random forest. By using a tree method, we are still able to maintain the explainability and interpretability that they have to offer, but avoid the variation found in other methods. Once we fit the model to our liking, we were able to look at the important features of the model.
 
+ [important features](importance.png)
  
 This graph shows which words were most important in the decision making process. Even comparing the important features of this model to another, like Bayes, we saw vital differences in features that just made more sense to how we thought it would predict. For example, our Naive Bayes model listed “feel” as its most important feature. This felt arbitrary to us because we assumed most people on the forum were indeed talking about their feelings, regardless of the topic. While we were sure this word would occur in our positive grouping of posts, we were disappointed to see it as the most important feature. However, in our fitted random forest model, “food” was the most important feature. This aligned with our expectations and it was cool to see that our model could pick that up. 
 
